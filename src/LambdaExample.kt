@@ -1,4 +1,4 @@
-package com.lambdas.abcxyz
+package com.lambdas.basicssamples
 
 data class Person(val name: String, val age: Int)
 
