@@ -16,6 +16,11 @@ operator fun Char.times(count: Int): String {
     return this.toString().repeat(count)
 }
 
+operator fun <T> MutableCollection<T>.plusAssign(element: T) {
+    println("+= called")
+    this.add(element)
+}
+
 fun main() {
     val point1 = Point(10, 20)
     val point2 = Point(30, 40)
@@ -27,4 +32,21 @@ fun main() {
     println(point * 1.5)
 
     println('a' * 3)
+
+    // Mutable collection
+    val mutableList = arrayListOf(1, 2)
+    // Modifies mutable collection, in place. No new copy.
+    mutableList += 3
+    println(mutableList)
+
+    // Read-only collection
+    val readOnlyList = listOf(4, 5)
+    // readOnlyList += 6    // <= Error: val cannot be reassigned
+    // If you want to add element to read-only collection do it like following or
+    // declare above variable as var
+    val newList = readOnlyList + 6
+    println(newList)
+
+    // Add lists
+    println(mutableList + readOnlyList)
 }
