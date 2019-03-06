@@ -33,8 +33,32 @@ fun alphabetUsingApply() = StringBuilder().apply {
     append("\nNow I know the alphabet using apply()")
 }.toString()
 
+data class Student(val name: String, var rollNumber: Int)
+
+
+
 fun main() {
     println(alphabet())
     println(alphabetConcise())
     println(alphabetUsingApply())
+
+    // Demonstrate that apply() returns the current reference,
+    // before changing the reference to itself
+    var sandy = Student("Sandy", 33)
+    val monty = Student("Monty", 40)
+    println(sandy.apply {
+        sandy = monty
+    })
+    println(sandy)
+
+    // Another example
+    val originalString = "abc"
+    originalString.apply {
+        println("Original string is : $this") // Prints abc
+        val reversedReference = reversed()
+        println("The reversed string from first function : $this") // Doesn't reverse
+        println("The reversed reference is : $reversedReference") // Now cba. Must catch to new a new reference
+    }.apply {
+        println("The reversed string is : $this") // Still prints abc
+    }
 }
