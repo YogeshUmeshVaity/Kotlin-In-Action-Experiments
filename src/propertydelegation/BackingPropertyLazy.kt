@@ -3,7 +3,7 @@ package propertydelegation
 data class Email(val address: String)
 
 /** This is a costly operation: retrieving from database or making network request.
- * So it cannot be afforded to be initialized early
+ * So it cannot be afforded to be initialized early or again and again
  */
 fun loadEmails(person: Person): List<Email> {
     println("Loaded emails for $person") // Prints only on initialization
