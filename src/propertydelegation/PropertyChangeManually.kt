@@ -15,19 +15,36 @@ open class PropertyChangeAware {
     }
 }
 
+/**
+ * In this class, we store the value of the property and automatically fire the property change event.
+ */
+class ObservableProperty(
+    private val propertyName: String, private var propertyValue: Int,
+    private val changeSupport: PropertyChangeSupport) {
+
+    fun getValue() = propertyValue
+    fun setValue(newValue: Int) {
+        val oldValue = propertyValue
+        propertyValue = newValue
+        changeSupport.firePropertyChange(propertyName, oldValue, newValue)
+    }
+}
+
 class Person(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
-    var age: Int = age
-        set(newValue) {
-            val oldValue = field
-            field = newValue
-            changeSupport.firePropertyChange("age", oldValue, newValue)
-        }
-    var salary: Int = salary
-        set(newValue) {
-            val oldValue = field
-            field = newValue
-            changeSupport.firePropertyChange("salary", oldValue, newValue)
-        }
+
+    /**
+     * We removed the repeated code, but quite a bit of code is required to create the
+     * ObservableProperty instance for each property and to delegate the getter and setter to it.
+     */
+    private val _age = ObservableProperty("age", age, changeSupport)
+        var age: Int
+            get() = _age.getValue()
+            set(value) = _age.setValue(value)
+
+    private val _salary = ObservableProperty("salary", salary, changeSupport)
+        var salary: Int
+            get() = _salary.getValue()
+            set(value) = _salary.setValue(value)
 }
 
 fun main() {
