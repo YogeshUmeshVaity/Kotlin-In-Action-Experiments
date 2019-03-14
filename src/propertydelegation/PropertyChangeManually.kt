@@ -2,6 +2,8 @@ package propertydelegation.propertychange
 
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
 open class PropertyChangeAware {
     protected val changeSupport = PropertyChangeSupport(this)
@@ -15,36 +17,17 @@ open class PropertyChangeAware {
     }
 }
 
-/**
- * In this class, we store the value of the property and automatically fire the property change event.
- */
-class ObservableProperty(
-    private val propertyName: String, private var propertyValue: Int,
-    private val changeSupport: PropertyChangeSupport) {
-
-    fun getValue() = propertyValue
-    fun setValue(newValue: Int) {
-        val oldValue = propertyValue
-        propertyValue = newValue
-        changeSupport.firePropertyChange(propertyName, oldValue, newValue)
-    }
-}
-
 class Person(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
 
-    /**
-     * We removed the repeated code, but quite a bit of code is required to create the
-     * ObservableProperty instance for each property and to delegate the getter and setter to it.
-     */
-    private val _age = ObservableProperty("age", age, changeSupport)
-        var age: Int
-            get() = _age.getValue()
-            set(value) = _age.setValue(value)
-
-    private val _salary = ObservableProperty("salary", salary, changeSupport)
-        var salary: Int
-            get() = _salary.getValue()
-            set(value) = _salary.setValue(value)
+    // Observer here specifies what to do when the even occurs
+    private val observer = { property: KProperty<*>, oldValue: Int, newValue: Int ->
+        changeSupport.firePropertyChange(property.name, oldValue, newValue)
+    }
+    // The object to the right of the 'by' is called delegate. Kotlin stores the delegate
+    // in a hidden property and calls getValue() and setValue() on the delegate when you
+    // access or modify the main property.
+    var age: Int by Delegates.observable(age, observer)
+    var salary: Int by Delegates.observable(salary, observer)
 }
 
 fun main() {
