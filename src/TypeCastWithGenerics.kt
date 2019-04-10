@@ -4,9 +4,16 @@
  * In example below, the Collection will be casted to List but not necessarily to List<Int>.
  * Because the type argument is not known at runtime when the cast is performed as it is erased.
  */
-fun sumSequence(sequence: Collection<*>): Int {
-    val numberList = sequence as? List<Int> ?: throw IllegalArgumentException("Required List of Int")
-    return numberList.sum()
+fun sumSequence(sequence: Collection<*>): Int {     // Unknown type argument
+    val intList = sequence as? List<Int> ?: throw IllegalArgumentException("Required List of Int")
+    return intList.sum()
+}
+
+// The cast without warning is possible because you know at compile time that this collection
+// contains integer numbers.
+fun sumSeqOfInt(sequence: Collection<Int>): Int {   // Known type argument
+    val intList = sequence as List<Int>
+    return intList.sum()
 }
 
 fun main() {
