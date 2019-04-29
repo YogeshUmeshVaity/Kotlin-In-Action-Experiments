@@ -26,8 +26,9 @@ fun feedAll(animals: Herd<Animal>) {
     }
 }
 
-class Cat : Animal() {
+open class Cat : Animal() {
     fun cleanLitter() { println("Litter is being cleaned") }
+    fun catchRat() { println("Cat is catching rat") }
 }
 
 fun takeCareOfCats(cats: Herd<Cat>) {
@@ -37,7 +38,35 @@ fun takeCareOfCats(cats: Herd<Cat>) {
     feedAll(cats)
 }
 
+class PersianCat : Cat() { }
+
+class RussianCat : Cat() { }
+
+// Contravariant
+class RatCatcherGroup<in T : Cat> {
+    private val ratCatchers = mutableListOf<T>()
+
+    fun add(ratCatcher: T) {
+        ratCatchers.add(ratCatcher)
+    }
+
+    fun sendAllToCatch() {
+        ratCatchers.forEach(Cat::catchRat)
+    }
+}
+
 fun main() {
+    // Covariant Test
     val cats = Herd<Cat>()
     takeCareOfCats(cats)
+
+    // Contravariant Test
+    val persianCat = PersianCat()
+    val russianCat = RussianCat()
+    val animal = Animal()
+    val catchers = RatCatcherGroup<Cat>()
+    catchers.add(persianCat)
+    catchers.add(russianCat)
+    // catchers.add(animal) // Error
+    catchers.sendAllToCatch()
 }
