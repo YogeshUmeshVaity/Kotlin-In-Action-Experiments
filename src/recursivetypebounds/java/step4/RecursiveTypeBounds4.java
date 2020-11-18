@@ -1,9 +1,5 @@
 package recursivetypebounds.java.step4;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 // Introducing recursive type bound
 /*
 
