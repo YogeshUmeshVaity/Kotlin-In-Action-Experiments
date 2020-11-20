@@ -11,7 +11,7 @@ package recursivetypebounds.kotlin.step1
  * that we extend from the Fruit. The amount of repeated code in our example is less but in real world use
  * cases the repeated code can be of thousands of lines.
  */
-internal interface Fruit {
+interface Fruit {
     val size: Int
 }
 
@@ -22,7 +22,7 @@ class Apple(override val size: Int) : Fruit, Comparable<Apple> {
     }
 }
 
-internal class Orange(override val size: Int) : Fruit, Comparable<Orange> {
+class Orange(override val size: Int) : Fruit, Comparable<Orange> {
 
     override operator fun compareTo(other: Orange): Int {
         return size.compareTo(other.size)

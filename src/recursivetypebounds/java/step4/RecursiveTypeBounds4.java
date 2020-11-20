@@ -46,11 +46,6 @@ class Orange extends Fruit<Orange> {
     public Orange(Integer size) {
         super(size);
     }
-
-    @Override
-    public String toString() {
-        return getSize().toString();
-    }
 }
 
 class Main {
