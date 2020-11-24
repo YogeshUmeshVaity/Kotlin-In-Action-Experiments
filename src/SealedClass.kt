@@ -4,7 +4,7 @@ sealed class Expr1 {
 }
 
 fun eval(e: Expr1): Int = when(e) {
-    is Expr1.Num1 -> e.value                                         // Check argument type, smart casts are applied.
+    is Expr1.Num1 -> e.value        // Check argument type, smart casts are applied.
     is Expr1.Sum1 -> eval(e.left) + eval(e.right)
 }
 

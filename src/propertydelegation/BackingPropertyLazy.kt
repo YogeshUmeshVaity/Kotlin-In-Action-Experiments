@@ -13,7 +13,7 @@ fun loadEmails(person: Person): List<Email> {
 /**
  * Explains lazy initialization using a backing property.
  * _emails is the backing property here.
- * This approach makes the code too verbose, imagine if there were many more properties were to be implemented
+ * This approach makes the code too verbose, imagine if there were many more properties to be implemented
  */
 data class Person(val name: String) {
     private var _emails: List<Email>? = null

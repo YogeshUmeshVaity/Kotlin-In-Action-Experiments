@@ -28,4 +28,12 @@ fun main() {
     contravariantCrate.last()           // Producer allowed: No Error?
 
     /* Explanation at: https://stackoverflow.com/questions/64835413/type-projections-in-kotlin-different-behaviour-for-use-site-and-declaration-sit */
+
+    val starCovariantCrate: Crate<*> = Crate<CitrusFruit>(mutableListOf(Orange()))
+//  starCovariantCrate.add(Fruit())           // Consumer not allowed
+    starCovariantCrate.last()
+
+    val starContraCrate: Crate<*> = Crate<CitrusFruit>(mutableListOf(Orange(), CitrusFruit()))
+//  starContraCrate.add(Orange())             // Consumer not allowed
+    starContraCrate.last()
 }
