@@ -13,7 +13,7 @@ import sealedclasses.taggedclassproblem.DeliveryStatus.Type.*
  * properties than it actually needs to represent a particular state. For example, for the DISPATCHED state,
  * the receiversName property won't be used.
  *
- * 3. Since these unused variables can be set from unrelated states, it's hard to guarantee the consistency of
+ * 3. Since these unused properties can be set from unrelated states, it's hard to guarantee the consistency of
  * a particular state. For example, one can set the receiversName property on the PREPARING state. In that case
  * the PREPARING will be an illegal state.
  */
