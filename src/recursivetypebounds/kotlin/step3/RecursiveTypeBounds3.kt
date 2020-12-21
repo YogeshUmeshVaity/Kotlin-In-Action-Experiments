@@ -8,7 +8,7 @@ cannot be compared to comparable Fruit<Orange>.
 Problem: The size property of T is unknown to the compiler. This is because the type parameter T of our
 Fruit class doesn't have any bound. So, the T could be any class, it is not possible that every class would
 have a size property. So the compiler is right in not recognizing the size property of T.
- */
+*/
 
 interface Fruit<T> : Comparable<T> {
     val size: Int
