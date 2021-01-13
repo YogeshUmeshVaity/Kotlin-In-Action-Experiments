@@ -46,10 +46,10 @@ Orange it contains. You don't want to accidentally add BloodOrange, if this is a
 fun useAsProducer(producer: ArrayList<out Orange>) {
 
     // Orange is guaranteed
-    val fruit = producer.get(1)           // OK
+    val orange = producer[1]           // OK
 
     // Can use functions and properties of Orange.
-    fruit.getVitaminC()                         // OK
+    orange.getVitaminC()                         // OK
 
     // Consumer functions not allowed
 //  producer.add(BloodOrange())               // Error
@@ -90,7 +90,7 @@ The invariant produces Orange as well as consumes Orange. No other types allowed
  */
 fun useAsProducerConsumer(producerConsumer: ArrayList<Orange>) {
     // Produces orange, no subtypes
-    val orange = producerConsumer.get(1)    // OK
+    val orange = producerConsumer[1]    // OK
 
     // Orange is guaranteed
     orange.getVitaminC()                    // OK
