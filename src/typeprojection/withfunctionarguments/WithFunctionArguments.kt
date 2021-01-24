@@ -85,16 +85,17 @@ When you are using ArrayList as a producer and consumer (don't specify in or out
 accept only the exact type ArrayList<Orange>, no other subtypes like ArrayList<MandarinOrange>. Because
 there is not subtyping allowed for invariants.
 
-The invariant produces Orange as well as consumes Orange. No other types allowed.
+The invariant produces as well as consumes Orange and its subtypes.
 
  */
 fun useAsProducerConsumer(producerConsumer: ArrayList<Orange>) {
-    // Produces orange, no subtypes
+    // Produces orange and its subtypes
     val orange = producerConsumer[1]    // OK
 
     // Orange is guaranteed
     orange.getVitaminC()                    // OK
 
-    // Consumes orange, no subtypes
+    // Consumes orange and its subtypes
     producerConsumer.add(Orange())          // OK
+    producerConsumer.add(MandarinOrange())
 }
