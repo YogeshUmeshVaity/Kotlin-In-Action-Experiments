@@ -12,7 +12,7 @@ data class User(val id: Long, val name: String) {
             listOf("John", "Jane")
         }
 
-        val settings by lazy {
+        val defaultSettings by lazy {
             print("Fetching user settings...")
             mapOf("Dark Theme" to "On", "Auto Backup" to "On")
         }
@@ -23,6 +23,6 @@ data class User(val id: Long, val name: String) {
 fun main() {
     println(User.list)      // Fetching user list...[John, Jane]
     println(User.list)      // [John, Jane]
-    println(User.settings)  // Fetching settings...{Dark Theme=On, Auto Backup=On}
-    println(User.settings)  // {Dark Theme=On, Auto Backup=On}
+    println(User.defaultSettings)  // Fetching settings...{Dark Theme=On, Auto Backup=On}
+    println(User.defaultSettings)  // {Dark Theme=On, Auto Backup=On}
 }
