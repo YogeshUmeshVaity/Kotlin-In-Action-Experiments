@@ -5,7 +5,6 @@ interface UserDao {
     fun remove(id: String)
 }
 
-
 /**
  * While this is a good setup, there are several problems in it:
  * 1. We have an extra step of creating the UserAccess object before we can add/remove a User.
@@ -16,7 +15,7 @@ interface UserDao {
  * 4. The naming userAccess.add() or userAccess.addUser() doesn't seem very elegant.
  *    We would prefer something like User.add().
  */
-data class User(val id: String, val name: String) {
+class User(val id: String, val name: String) {
     class UserAccess : UserDao {
         override fun add(user: User) { }
         override fun remove(id: String) { }
